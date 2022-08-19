@@ -91,7 +91,9 @@ public class TerritoryService
         var buildingNode = worldStateService.NodeByPosition(building.Position);
         if (buildingNode.GetType() != typeof(AvailableNode)) return;
         if (((AvailableNode) buildingNode).IsUsed()) return;
-        if (!bot.Territory.Contains(building.Position)) return;
+		if (building.Type != BuildingType.Base) {
+			if (!bot.Territory.Contains(building.Position)) return;
+		}
 
         bot.Buildings.Add(building);
         RemoveAvailableNodeWhereBuildingIsPlaced(bot, (AvailableNode)buildingNode);
